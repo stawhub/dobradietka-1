@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Płatność za dietę - DobraDietka</title>
+    <link rel="stylesheet" href="dobradietka.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+
+
+</head>
+
+<body>
+    <header>
+        <h1>DobraDietka</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Strona główna</a></li>
+                <li><a href="przepisy.html">Jadłospisy</a></li>
+                <li><a href="kontakt.html">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Płatność za dietę</h2>
+            <p>Proszę wypełnić poniższe informacje dotyczące płatności.</p>
+            <p>Kwota do zapłaty: <span id="amount">45 zł</span></p>
+            <form id="payment-form">
+               
+                <div id="card-errors" role="alert"></div>
+                <button id="checkout-button">Zapłać teraz</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2022 DobraDietka. Wszelkie prawa zastrzeżone</p>
+    </footer>
+
+    
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="platnosc.js"></script>
+</body>
+
+</html>
