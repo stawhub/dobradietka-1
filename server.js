@@ -6,12 +6,11 @@ const bcrypt = require('bcryptjs');
 const Stripe = require('stripe');
 const stripe = Stripe(process.env.SECRET_KEY);
 const session = require('express-session');
-const fs = require('fs');
-const https = require('https');
 const express = require('express');
 const nodemailer = require('nodemailer');
 const app = express();
 const mysql = require('mysql');
+
 
 // Zmiana tutaj: Używamy zmiennej środowiskowej JAWSDB_URL do połączenia
 const connection = mysql.createConnection(process.env.JAWSDB_URL);
@@ -66,18 +65,11 @@ app.use(session({
     saveUninitialized: true
 }));
 
-const privateKey = fs.readFileSync('nokey.pem', 'utf8');
-const certificate = fs.readFileSync('cert.pem', 'utf8');
-const credentials = { key: privateKey, cert: certificate };
-
-const httpsServer = https.createServer(credentials, app);
-
-httpsServer.listen(3000, async () => {
-    console.log('HTTPS Server running on port 3000');
-    
-}).on('error', (err) => {
-    console.error("Błąd podczas uruchamiania serwera HTTPS:", err);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Serwer działa na porcie ${PORT}`);
 });
+
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
