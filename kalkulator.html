@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Zapotrzebowania Kalorycznego - DobraDietka</title>
+    <link rel="stylesheet" href="dobradietka.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1>DobraDietka</h1>
+        <nav>
+            <ul>
+                <li><a href="dobradietka.html">Strona główna</a></li>
+                <li><a href="przepisy.html">Jadłospisy</a></li>
+                <li><a href="kontakt.html">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Kalkulator Zapotrzebowania Kalorycznego</h2>
+            <form id="clientDataForm" action="/getDiet" method="post">
+                <div>
+                    <label>Wiek:</label> <input type="number" name="age" required>
+                </div>
+                <div>
+                    <label>Płeć:</label>
+                    <select name="gender">
+                        <option value="male">Mężczyzna</option>
+                        <option value="female">Kobieta</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Waga (kg):</label> <input type="number" name="weight" required>
+                </div>
+                <div>
+                    <label>Wzrost (cm):</label> <input type="number" name="height" required>
+                </div>
+                <div>
+                    <label>Poziom aktywności:</label>
+                    <select name="activityLevel">
+                        <option value="low">Niski</option>
+                        <option value="medium">Średni</option>
+                        <option value="high">Wysoki</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Cel:</label>
+                    <select name="goal">
+                        <option value="lose">Utrata wagi</option>
+                        <option value="gain">Przyrost masy</option>
+                        <option value="maintain">Utrzymanie wagi</option>
+                    </select>
+                </div>
+                <div id="calorieMessage"></div>
+                <div><input type="submit" value="Przejdź dalej"></div>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2022 DobraDietka. Wszelkie prawa zastrzeżone</p>
+    </footer>
+</body>
+
+</html>
