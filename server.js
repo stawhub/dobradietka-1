@@ -12,19 +12,17 @@ const express = require('express');
 const nodemailer = require('nodemailer');
 const app = express();
 const mysql = require('mysql');
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'dietka_user',
-    password: process.env.SQL_PASSWORD,
-    database: 'dobra dietka'
-  });
-  connection.connect(err => {
-    if (err) {
-      console.error('Błąd połączenia z bazą danych:', err.stack);
-      return;
-    }
-    console.log('Połączono z bazą danych MySQL.');
-  });
+
+// Zmiana tutaj: Używamy zmiennej środowiskowej JAWSDB_URL do połączenia
+const connection = mysql.createConnection(process.env.JAWSDB_URL);
+
+connection.connect(err => {
+  if (err) {
+    console.error('Błąd połączenia z bazą danych JawsDB:', err.stack);
+    return;
+  }
+  console.log('Połączono z bazą danych JawsDB.');
+});
 
   connection.query(`
   CREATE TABLE IF NOT EXISTS users (
