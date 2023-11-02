@@ -174,7 +174,7 @@ app.post('/create-checkout-session', async (req, res) => {
                 quantity: 1,
             }],
             mode: 'payment',
-            success_url: 'https://wide-tires-return.loca.lt/userProfile.html',
+            success_url: 'https://tranquil-harbor-55562.herokuapp.com/userProfile',
             cancel_url: 'https://your-website.com/cancel',
         });
         res.json({ id: session.id });
