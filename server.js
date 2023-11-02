@@ -174,7 +174,7 @@ app.post('/create-checkout-session', async (req, res) => {
                 quantity: 1,
             }],
             mode: 'payment',
-            success_url: 'https://tranquil-harbor-55562.herokuapp.com/userProfile',
+            success_url: 'https://dobradietka-38e3caf0141a.herokuapp.com//userProfile',
             cancel_url: 'https://your-website.com/cancel',
         });
         res.json({ id: session.id });
