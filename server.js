@@ -272,7 +272,7 @@ function sendDietToEmail(dietData, email) {
     });
 }
 
-app.get('/userProfile', (req, res) => {
+app.get('/userProfile.html', (req, res) => {
     res.send('Profil użytkownika');
 });
 
