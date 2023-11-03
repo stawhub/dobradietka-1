@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Użytkownika</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .menu-item {
+            margin: 0 10px;
+            cursor: pointer;
+        }
+
+        .profile-section {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            border: 1px solid #ddd;
+            margin: 10px;
+            border-radius: 10px;
+        }
+
+        .card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .card-content {
+            text-align: center;
+        }
+
+        .card-price {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .slider {
+            display: flex;
+            overflow-x: auto;
+        }
+
+        .slider-button {
+            font-size: 24px;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div>
+            <!-- Linki nawigacyjne -->
+            <span class="menu-item">Szkolenia</span>
+            <span class="menu-item">O nas</span>
+            ...
+        </div>
+        <div>
+            <!-- Logo, wyszukiwarka, koszyk itp. -->
+        </div>
+    </div>
+
+    <div class="profile-section">
+        <h2>Moje konto</h2>
+        <!-- Linki profilu użytkownika -->
+        <span class="menu-item">Moje szkolenia</span>
+        ...
+    </div>
+
+    <h2>Możesz uzupełnić wiedzę</h2>
+    <div class="slider">
+        <span class="slider-button">❮</span>
+
+        <!-- Karty szkoleń -->
+        <div class="card">
+            <img src="link_do_obrazka1" alt="Prezenter 1">
+            <div class="card-content">
+                <h3>Podstawy Nowoczesnego Treningu Medycznego</h3>
+                <p>prowadzący: Marek Kuś</p>
+                ...
+            </div>
+            <span class="card-price">790 zł</span>
+        </div>
+
+        <div class="card">
+            <img src="link_do_obrazka2" alt="Prezenter 2">
+            <div class="card-content">
+                ...
+            </div>
+        </div>
+
+        ...
+
+        <span class="slider-button">❯</span>
+    </div>
+</body>
+</html>

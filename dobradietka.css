@@ -1,0 +1,153 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #181818; /* Ciemne tło */
+    color: #f4f4f4; /* Jasna czcionka */
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #232323; /* Lekko jaśniejsze tło dla nagłówka */
+    color: #f4f4f4;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+nav ul {
+    padding: 0;
+    list-style-type: none;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: #FF6347; /* Czerwony kolor dla linków */
+    text-decoration: none;
+}
+
+main {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: #232323; /* Lekko jaśniejsze tło dla głównego kontentu */
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type="submit"] {
+    background-color: #FF6347; /* Czerwony kolor dla przycisków */
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+input[type="submit"]:hover {
+    background-color: #FF4500; /* Ciemniejszy odcień czerwieni dla hover */
+}
+
+footer {
+    background-color: #232323; /* Lekko jaśniejsze tło dla stopki */
+    color: #f4f4f4;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+section {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+section h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+section p {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+section button {
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #FF6347; /* Czerwony kolor dla przycisków w sekcji */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+section button:hover {
+    background-color: #FF4500; /* Ciemniejszy odcień czerwieni dla hover */
+}
+
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-container label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.login-container input[type="email"],
+.login-container input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.login-container input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-container input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.login-container p {
+    text-align: center;
+}
