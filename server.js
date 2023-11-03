@@ -124,7 +124,12 @@ app.post('/login', (req, res) => {
         }
 
         req.session.userId = user.id;
-        res.redirect('/platnosc.html');
+        // Sprawdź, czy użytkownik już zakupił dietę
+        if (user.hasPurchasedDiet) {
+            res.redirect('/userProfile');
+        } else {
+            res.redirect('/platnosc.html');
+        }
     });
 });
 
