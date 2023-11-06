@@ -10,7 +10,33 @@ const express = require('express');
 const nodemailer = require('nodemailer');
 const app = express();
 const mysql = require('mysql');
+const { S3Client, GetObjectCommand } = require("@aws-sdk/client-s3");
+const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
+const AWS = require('aws-sdk');
 
+const s3Client = new S3Client({
+    region: "eu-north-1",
+    credentials: {
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+    }
+  });
+  async function getPresignedUrl(bucketName, objectKey) {
+    const command = new GetObjectCommand({
+      Bucket: bucketName,
+      Key: objectKey
+    });
+
+const expires = 60 * 5; // Link będzie ważny przez 5 minut
+
+  try {
+    const url = await getSignedUrl(s3Client, command, { expiresIn: expires });
+    return url;
+  } catch (err) {
+    console.error("Error creating presigned URL", err);
+    throw err;
+  }
+}
 
 // Zmiana tutaj: Używamy zmiennej środowiskowej JAWSDB_URL do połączenia
 const connection = mysql.createConnection(process.env.JAWSDB_URL);
