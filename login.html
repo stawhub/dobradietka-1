@@ -23,17 +23,17 @@
     <main>
         <section>
             <h2>Logowanie</h2>
-            <form id="loginForm" action="/login" method="post">
+            <form id="loginForm">
                 <div class="input-group">
                     <label>Login lub E-mail:</label>
-                    <input type="email" name="email"  placeholder="Wprowadź swój adres e-mail" required>
+                    <input type="email" name="email" id="email" placeholder="Wprowadź swój adres e-mail" required>
                 </div>
                 <div class="input-group">
                     <label>Hasło:</label>
-                    <input type="password" name="password" required>
+                    <input type="password" name="password" id="password" required>
                 </div>
                 <div class="input-group">
-                    <input type="submit" value="Zaloguj się">
+                    <button type="submit">Zaloguj się</button>
                 </div>
             </form>
             <p>Nie masz konta? <a href="rejestracja.html">Zarejestruj się</a></p>
@@ -42,16 +42,28 @@
     <footer>
         <p>&copy; 2022 DobraDietka. Wszelkie prawa zastrzeżone</p>
     </footer>
+    <script src="auth.js"></script>
     <script>
         window.onload = function() {
+            const loginForm = document.getElementById('loginForm');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+
             const urlParams = new URLSearchParams(window.location.search);
             const email = urlParams.get('email');
             if (email) {
-                document.querySelector('input[name="email"]').value = email;
+                emailInput.value = email;
             }
+
+            loginForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const email = emailInput.value;
+                const password = passwordInput.value;
+                // Tutaj możesz wywołać funkcję z auth.js, np. loginUser(email, password);
+            });
         }
     </script>
-    
 </body>
 
 </html>
+
