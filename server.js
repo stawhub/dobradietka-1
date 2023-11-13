@@ -1,60 +1,88 @@
-// Konfiguracja środowiska i importy
-require('dotenv').config();
+require('dotenv').config({path:'./.env'});
 const express = require('express');
-const bcrypt = require('bcryptjs');
 const session = require('express-session');
-const { S3Client, GetObjectCommand } = require("@aws-sdk/client-s3");
-const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const nodemailer = require('nodemailer');
 const mysql = require('mysql');
+const bcrypt = require('bcryptjs');
+const Stripe = require('stripe');
+const stripe = Stripe(process.env.SECRET_KEY);
+const { S3Client } = require("@aws-sdk/client-s3");
+const dietLogic = require('./dietLogic');
 
-// Inicjalizacja aplikacji Express
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-// Konfiguracja sesji
-const sessionOptions = {
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true } // Ustaw na true jeśli używasz HTTPS
-};
-app.use(session(sessionOptions));
-
-// Konfiguracja połączenia z bazą danych
-const dbOptions = {
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
-};
-const connection = mysql.createConnection(dbOptions);
-connection.connect();
-
-// Konfiguracja klienta S3
+// Konfiguracja klienta AWS S3
 const s3Client = new S3Client({
-    region: process.env.AWS_REGION,
+    region: "eu-north-1",
     credentials: {
         accessKeyId: process.env.AWS_ACCESS_KEY_ID,
         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
     }
 });
 
-// Middleware do obsługi danych formularza i plików statycznych
+// Połączenie z bazą danych
+const connection = mysql.createConnection(process.env.JAWSDB_URL);
+connection.connect(err => {
+    if (err) {
+        console.error('Błąd połączenia z bazą danych JawsDB:', err.stack);
+        return;
+    }
+    console.log('Połączono z bazą danych JawsDB.');
+});
+
+// Inicjalizacja aplikacji Express
+const app = express();
+app.use(express.static(__dirname));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static('public')); // Serwowanie plików statycznych z folderu 'public'
+app.use(session({
+    secret: 'secret-key',
+    resave: false,
+    saveUninitialized: true
+}));
 
-// Routy
-const authRouter = require('./routes/auth')(connection, bcrypt);
-const dietRouter = require('./routes/diet')(connection, s3Client, getSignedUrl, nodemailer);
+// Importowanie logiki diety
+const { calculateDietAndSendEmail } = dietLogic(connection, s3Client);
 
+// Rejestracja
+app.post('/register', async (req, res) => {
+    // Logika rejestracji
+});
 
-app.use('/auth', authRouter);
-app.use('/diet', dietRouter);
+// Logowanie
+app.post('/login', async (req, res) => {
+    // Logika logowania
+});
 
-// Start serwera
+// Płatność
+app.post('/charge', async (req, res) => {
+    // Logika płatności
+});
+
+// Obsługa sesji płatności
+app.post('/create-checkout-session', async (req, res) => {
+    // Logika sesji płatności
+});
+
+// Obsługa żądania diety
+app.post('/getDiet', async (req, res) => {
+    // Logika obsługi żądania diety
+});
+
+// Strony i inne ścieżki
+app.get('/userProfile', (req, res) => {
+    res.sendFile(__dirname + '/userProfile.html');
+});
+
+app.get('/dobradietka', (req, res) => {
+    res.sendFile(__dirname + '/dobradietka.html');
+});
+
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/kalkulator.html');
+});
+
+// Uruchomienie serwera
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Serwer działa na porcie ${PORT}`);
 });
+
+module.exports = app;
