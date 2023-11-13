@@ -55,12 +55,30 @@
                 emailInput.value = email;
             }
 
-            loginForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-                const email = emailInput.value;
-                const password = passwordInput.value;
-                loginUser(email, password); // Wywołanie funkcji logowania z auth.js
-            });
+            lloginForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const email = emailInput.value;
+    const password = passwordInput.value;
+
+    fetch('/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            window.location.href = '/userProfile'; // Przekierowanie na profil użytkownika
+        } else {
+            // Obsługa błędów logowania
+            console.error('Błąd logowania:', data.message);
+        }
+    })
+    .catch(error => console.error('Błąd:', error));
+});
+
         }
     </script>
 </body>
