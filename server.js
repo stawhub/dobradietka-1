@@ -69,7 +69,7 @@ app.post('/create-checkout-session', async (req, res) => {
 });
 
 // Obsługa żądania diety
-app.post('/calculateDiet', async (req, res) => {
+app.post('/kalkulator', async (req, res) => {
     try {
         const userData = req.body;
         const dietLogicResult = await dietLogic.calculateDietAndSendEmail(userData);
