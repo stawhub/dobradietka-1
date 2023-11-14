@@ -69,6 +69,7 @@ app.post('/create-checkout-session', async (req, res) => {
 });
 
 // Obsługa żądania diety
+const dietLogicInstance = dietLogic(connection, s3Client);
 app.post('/kalkulator', async (req, res) => {
     try {
         const userData = req.body;
