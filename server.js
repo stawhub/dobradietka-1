@@ -69,8 +69,16 @@ app.post('/create-checkout-session', async (req, res) => {
 });
 
 // Obsługa żądania diety
-app.post('/getDiet', async (req, res) => {
-    // Logika obsługi żądania diety
+app.post('/calculateDiet', async (req, res) => {
+    try {
+        const userData = req.body;
+        const dietLogicResult = await dietLogic.calculateDietAndSendEmail(userData);
+        // Tutaj możesz przetworzyć wynik z dietLogic, np. zapisując go w sesji
+        res.redirect('/login.html');
+    } catch (error) {
+        console.error('Błąd podczas obliczania diety:', error);
+        res.status(500).send('Wystąpił błąd serwera.');
+    }
 });
 
 // Strony i inne ścieżki
