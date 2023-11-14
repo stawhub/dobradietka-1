@@ -74,6 +74,7 @@ app.post('/kalkulator', async (req, res) => {
     try {
         const userData = req.body;
         const dietLogicResult = await dietLogic.calculateDietAndSendEmail(userData);
+        console.log(dietLogicInstance); // Sprawdź, co zawiera dietLogicInstance
         // Tutaj możesz przetworzyć wynik z dietLogic, np. zapisując go w sesji
         res.redirect('/login.html');
     } catch (error) {
