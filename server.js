@@ -8,6 +8,9 @@ const stripe = Stripe(process.env.SECRET_KEY);
 const { S3Client } = require("@aws-sdk/client-s3");
 const dietLogic = require('./dietLogic');
 
+
+
+
 // Konfiguracja klienta AWS S3
 const s3Client = new S3Client({
     region: "eu-north-1",
@@ -37,6 +40,10 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
+// Importowanie i użycie routera auth.js
+const authRoutes = require('./routes/auth')(connection);
+app.use('/auth', authRoutes);
+
 
 // Importowanie logiki diety
 const { calculateDietAndSendEmail } = dietLogic(connection, s3Client);
