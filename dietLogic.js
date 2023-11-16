@@ -4,8 +4,8 @@ const { S3Client, GetObjectCommand } = require("@aws-sdk/client-s3");
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 
 module.exports = function(connection, s3Client) {
-    async function calculateDietAndSendEmail(userData) {
-        const { age, gender, weight, height, activityLevel, goal, email } = userData;
+    async function calculateDiet(userData) {
+        const { age, gender, weight, height, activityLevel, goal } = userData;
 
         // Wylicz zapotrzebowanie kaloryczne
         let BMR;
@@ -42,39 +42,18 @@ module.exports = function(connection, s3Client) {
         let assignedDiet;
         // ... (logika przypisania diety na podstawie caloricNeed)
 
+        // Zwróć przypisaną dietę i inne potrzebne informacje
+        return { assignedDiet, caloricNeed };
+    }
+
+    async function sendDietEmailAfterPayment(email, assignedDiet) {
         // Pobierz link do diety z AWS S3
         const dietKey = `diets/${assignedDiet}.pdf`;
         const dietUrl = await getPresignedUrl('your-bucket-name', dietKey);
 
-        // Wyślij e-mail z dietą
-        await sendDietEmail(email, dietUrl);
-
-        // Zaktualizuj informacje o użytkowniku w bazie danych
-        connection.query('UPDATE users SET hasPurchasedDiet = TRUE WHERE email = ?', [email], (err, results) => {
-            if (err) {
-                console.error('Błąd aktualizacji użytkownika:', err);
-            }
-        });
-
-        return dietUrl; // Można zwrócić URL do wykorzystania na stronie użytkownika
-    }
-
-    async function getPresignedUrl(bucketName, objectKey) {
-        const command = new GetObjectCommand({ Bucket: bucketName, Key: objectKey });
-        const expires = 60 * 5; // Link ważny przez 5 minut
-
-        try {
-            const url = await getSignedUrl(s3Client, command, { expiresIn: expires });
-            return url;
-        } catch (err) {
-            console.error("Error creating presigned URL", err);
-            throw err;
-        }
-    }
-
-    async function sendDietEmail(email, dietUrl) {
+        // Konfiguracja nodemailer
         const transporter = nodemailer.createTransport({
-            host: 'your-smtp-host',
+            host: 'trenerstawicki.atthost24.pl',
             port: 465,
             secure: true,
             auth: {
@@ -84,7 +63,7 @@ module.exports = function(connection, s3Client) {
         });
 
         const mailOptions = {
-            from: 'kontakt@example.com',
+            from: 'kontakt@trenerstawickionline.pl',
             to: email,
             subject: 'Twoja dieta',
             text: 'Oto Twoja dieta!',
@@ -102,7 +81,21 @@ module.exports = function(connection, s3Client) {
         });
     }
 
+    async function getPresignedUrl(bucketName, objectKey) {
+        const command = new GetObjectCommand({ Bucket: bucketName, Key: objectKey });
+        const expires = 60 * 5; // Link ważny przez 5 minut
+
+        try {
+            const url = await getSignedUrl(s3Client, command, { expiresIn: expires });
+            return url;
+        } catch (err) {
+            console.error("Error creating presigned URL", err);
+            throw err;
+        }
+    }
+
     return {
-        calculateDietAndSendEmail
+        calculateDiet,
+        sendDietEmailAfterPayment
     };
 };
