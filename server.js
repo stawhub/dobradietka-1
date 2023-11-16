@@ -32,11 +32,17 @@ const app = express();
 app.use(express.static(__dirname));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.set('trust proxy', 1);
 app.use(session({
     secret: process.env.SESSION_SECRET, // Odczytanie klucza z zmiennej środowiskowej
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false} // Ustaw na `true` tylko jeśli używasz HTTPS
+    cookie: {
+        secure: process.env.NODE_ENV === 'production', // Użyj ciasteczek 'secure' tylko w produkcji
+        httpOnly: true, // Zapobiega dostępowi do ciasteczka przez skrypty po stronie klienta
+        maxAge: 24 * 60 * 60 * 1000 // 24 godziny
+    }
     
 }))
 console.log('utworzono sesję');
