@@ -69,6 +69,7 @@ app.get('/login', (req, res) => {
 
 // Logika po zalogowaniu
 app.get('/login-success', (req, res) => {
+    console.log('Stan sesji w /login-success:', req.session);
     if (req.session.userData && req.session.dietResult) {
         res.redirect('/payment'); // Przekieruj do strony płatności
     } else {
@@ -78,6 +79,7 @@ app.get('/login-success', (req, res) => {
 
 // Logika po pomyślnej płatności
 app.get('/payment-success', async (req, res) => {
+    console.log('Stan sesji w /payment-success:', req.session);
     if (req.session.userData && req.session.dietResult) {
         try {
             await dietLogicInstance.sendDietEmailAfterPayment(req.session.userData.email, req.session.dietResult.assignedDiet);
@@ -93,6 +95,7 @@ app.get('/payment-success', async (req, res) => {
 
 // Strony i inne ścieżki
 app.get('/userProfile', (req, res) => {
+    console.log('Stan sesji w /userProfile:', req.session);
     if (req.session.userData) {
         res.sendFile(__dirname + '/userProfile.html');
     } else {

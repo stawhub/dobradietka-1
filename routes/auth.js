@@ -39,6 +39,7 @@ module.exports = function(connection) {
             }
     
             req.session.userId = user.id;
+            console.log('Stan sesji po zalogowaniu:', req.session);
             res.json({ success: true, redirectUrl: user.hasPurchasedDiet ? '/userProfile' : '/platnosc.html' });
         });
     });
