@@ -36,7 +36,7 @@ app.use(session({
     secret: process.env.SESSION_SECRET, // Odczytanie klucza z zmiennej środowiskowej
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false } // Ustaw na `true` tylko jeśli używasz HTTPS
+    cookie: { secure: true } // Ustaw na `true` tylko jeśli używasz HTTPS
     
 }))
 console.log('utworzono sesję');
