@@ -1,8 +1,9 @@
 require('dotenv').config({path:'./.env'});
 const express = require('express');
 const session = require('express-session');
-const RedisStore = require('connect-redis')(session);
 const redis = require('redis');
+const createRedisStore = require('connect-redis');
+const RedisStore = createRedisStore(session);
 const mysql = require('mysql');
 const bcrypt = require('bcryptjs');
 const Stripe = require('stripe');
@@ -12,8 +13,11 @@ const dietLogic = require('./dietLogic');
 
 // Konfiguracja klienta Redis
 let redisClient = redis.createClient({
-    url: process.env.REDIS_URL
+    url: process.env.REDIS_URL,
+    legacyMode: true
 });
+redisClient.connect().catch(console.error);
+
 // Konfiguracja klienta AWS S3
 const s3Client = new S3Client({
     region: "eu-north-1",
