@@ -1,6 +1,8 @@
 require('dotenv').config({path:'./.env'});
 const express = require('express');
 const session = require('express-session');
+const RedisStore = require('connect-redis')(session);
+const redis = require('redis');
 const mysql = require('mysql');
 const bcrypt = require('bcryptjs');
 const Stripe = require('stripe');
@@ -8,6 +10,10 @@ const stripe = Stripe(process.env.SECRET_KEY);
 const { S3Client } = require("@aws-sdk/client-s3");
 const dietLogic = require('./dietLogic');
 
+// Konfiguracja klienta Redis
+let redisClient = redis.createClient({
+    url: process.env.REDIS_URL
+});
 // Konfiguracja klienta AWS S3
 const s3Client = new S3Client({
     region: "eu-north-1",
@@ -35,17 +41,17 @@ app.use(express.json());
 
 app.set('trust proxy', 1);
 app.use(session({
-    secret: process.env.SESSION_SECRET, // Odczytanie klucza z zmiennej środowiskowej
+    store: new RedisStore({ client: redisClient }),
+    secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: {
-        secure: process.env.NODE_ENV === 'production', // Użyj ciasteczek 'secure' tylko w produkcji
-        httpOnly: true, // Zapobiega dostępowi do ciasteczka przez skrypty po stronie klienta
+        secure: process.env.NODE_ENV === 'production',
+        httpOnly: true,
         maxAge: 24 * 60 * 60 * 1000 // 24 godziny
     }
-    
-}))
-console.log('utworzono sesję');
+}));
+console.log('Utworzono sesję z Redis');
 
 // Importowanie i użycie routera auth.js
 const authRoutes = require('./routes/auth')(connection);

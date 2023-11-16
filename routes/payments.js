@@ -33,7 +33,7 @@ module.exports = function() {
                     price_data: {
                         currency: 'pln',
                         product_data: {
-                            name: 'Twoja usługa/dieta',
+                            name: 'Twoja dieta',
                         },
                         unit_amount: 4500, // Cena w groszach, np. 45.00 PLN
                     },
