@@ -1,5 +1,5 @@
 // client-side-payment.js
-const stripePublicKey = 'pk_live_51Nfr3cIAZO7dV02UsjYLguZJLCzIXfcUZfzOXcGlDkr5N4zXmcHMKg4ZNXqA4qowl215SuJeXFzqaojkMu4zYLaf00cIJx3cjP';
+var stripe = Stripe('pk_test_51Nfr3cIAZO7dV02UfODgCz2IFfgGykeoqHzMJRodQqZ02mvsNp3Atm2QHqIc8NqD95npQbK2ECpN5lXS6p1kUfGp00g3AM0lce'); ;
 async function initiatePaymentProcess() {
     try {
         const response = await fetch('/payment/create-checkout-session', {
