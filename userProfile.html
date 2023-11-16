@@ -79,7 +79,7 @@
 
     <div class="profile-section">
         <h2>Moje konto</h2>
-        <!-- Linki profilu użytkownika -->
+        <div id="user-info">
         <span class="menu-item">Moje szkolenia</span>
         ...
     </div>
@@ -110,5 +110,27 @@
 
         <span class="slider-button">❯</span>
     </div>
+    <script>
+        window.onload = function() {
+            fetch('/user')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Błąd sieciowy');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const userInfoDiv = document.getElementById('user-info');
+                    userInfoDiv.innerHTML = `
+                        <p>Imię: ${data.firstName}</p>
+                        <p>Nazwisko: ${data.lastName}</p>
+                        <p>Email: ${data.email}</p>
+                    `;
+                })
+                .catch(error => {
+                    console.error('Błąd podczas pobierania danych użytkownika:', error);
+                });
+        };
+    </script>
 </body>
 </html>

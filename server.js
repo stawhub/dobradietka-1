@@ -83,6 +83,27 @@ app.get('/login-success', (req, res) => {
     }
 });
 
+// Dodanie endpointu /user
+app.get('/user', (req, res) => {
+    if (!req.session.userId) {
+        return res.status(401).send('Nie jesteś zalogowany.');
+    }
+
+    connection.query('SELECT first_name, last_name, email FROM users WHERE id = ?', [req.session.userId], (err, results) => {
+        if (err) {
+            console.error('Błąd podczas pobierania danych użytkownika:', err);
+            return res.status(500).send('Błąd serwera.');
+        }
+
+        if (results.length === 0) {
+            return res.status(404).send('Użytkownik nie znaleziony.');
+        }
+
+        const user = results[0];
+        res.json({ firstName: user.first_name, lastName: user.last_name, email: user.email });
+    });
+});
+
 // Logika po pomyślnej płatności
 app.get('/payment-success', async (req, res) => {
     console.log('Stan sesji w /payment-success:', req.session);
