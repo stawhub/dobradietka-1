@@ -1,5 +1,5 @@
-// client-side-payment.js
-var stripe = Stripe('pk_test_51Nfr3cIAZO7dV02UfODgCz2IFfgGykeoqHzMJRodQqZ02mvsNp3Atm2QHqIc8NqD95npQbK2ECpN5lXS6p1kUfGp00g3AM0lce'); ;
+var stripe = Stripe('pk_test_51Nfr3cIAZO7dV02UfODgCz2IFfgGykeoqHzMJRodQqZ02mvsNp3Atm2QHqIc8NqD95npQbK2ECpN5lXS6p1kUfGp00g3AM0lce');
+
 async function initiatePaymentProcess() {
     try {
         const response = await fetch('/payment/create-checkout-session', {
@@ -14,7 +14,6 @@ async function initiatePaymentProcess() {
 
         if (response.ok) {
             // Przekierowanie do Stripe Checkout
-            const stripe = Stripe('twoj_publiczny_klucz_stripe');
             stripe.redirectToCheckout({ sessionId: session.id });
         } else {
             throw new Error('Problem z utworzeniem sesji płatności');
