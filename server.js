@@ -2,7 +2,7 @@ require('dotenv').config({path:'./.env'});
 const express = require('express');
 const session = require('express-session');
 const redis = require('redis');
-const RedisStore = require('connect-redis')(session);
+const RedisStore = require('connect-redis')
 const mysql = require('mysql');
 const bcrypt = require('bcryptjs');
 const Stripe = require('stripe');
@@ -44,7 +44,6 @@ app.use(express.json());
 
 app.set('trust proxy', 1);
 app.use(session({
-    store: new RedisStore({ client: redisClient }),
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
@@ -132,7 +131,9 @@ app.get('/payment-success', async (req, res) => {
 // Strony i inne ścieżki
 app.get('/userProfile', (req, res) => {
     console.log('Stan sesji w /userProfile:', req.session);
+
     if (req.session.userData) {
+
         res.sendFile(__dirname + '/userProfile.html');
     } else {
         res.redirect('/login'); // Przekieruj do logowania, jeśli użytkownik nie jest zalogowany

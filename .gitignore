@@ -1,0 +1,26 @@
+# TIP: Explanation of .gitignore (by Kyrylo)
+
+# What is .gitignore?
+# - This file specifies intentionally untracked files that Git should ignore.
+# - Files already tracked by Git are not affected.
+
+# Why Use .gitignore?
+# - To keep the repository clean and avoid tracking unnecessary or sensitive files.
+# - It helps in avoiding large files or personal configurations from being pushed to the repository.
+
+# Examples of what's already ignored:
+# node_modules/ - Contains npm packages. These are installed locally(npm install) and don't need to be tracked.
+# /.idea/ - IDE specific files. Personal IDE configurations are unique to each developer. (.idea just mine IDE files)
+
+# IMPORTANT: Add .env to .gitignore
+# - The .env file contains sensitive information (passwords, API keys).
+# - It's critical to keep this file out of the repository to maintain security.
+# - Please add `.env` to this .gitignore file if it's not already listed.
+
+# If you have any questions or need more clarity, feel free to ask!
+
+node_modules/
+/.idea/.gitignore
+/.idea/dobradietka.iml
+/.idea/modules.xml
+/.idea/vcs.xml

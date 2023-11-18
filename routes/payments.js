@@ -40,8 +40,8 @@ module.exports = function() {
                     quantity: 1,
                 }],
                 mode: 'payment',
-                success_url: 'https://dobradietka-38e3caf0141a.herokuapp.com/userProfile', // URL przekierowania po udanej płatności
-                cancel_url: 'https://dobradietka-38e3caf0141a.herokuapp.com/', // URL przekierowania po anulowaniu płatności
+                success_url: `${process.env.BASE_URL}/userProfile`, // URL przekierowania po udanej płatności
+                cancel_url: process.env.BASE_URL, // URL przekierowania po anulowaniu płatności
             });
             res.json({ id: session.id });
         } catch (error) {

@@ -1,4 +1,25 @@
 // dietLogic.js
+
+// TIP: Avoid Using Magic Numbers (by Kyrylo)
+
+// What are Magic Numbers?
+// - Magic numbers are hard-coded values that appear in the code without context or explanation.
+// - They can make the code hard to understand and maintain, as their purpose is not immediately clear.
+
+// Why Avoid Them?
+// - Using magic numbers reduces code readability and can lead to errors.
+// - It's difficult to update or change these values consistently throughout the codebase.
+
+// Best Practice:
+// - Use named constants instead of magic numbers to give context.
+// - Constants should be defined at the top of your file or in a configuration file.
+
+// Example:
+// BAD: if (user.age > 18) { /*...*/ } // What does 18 signify?
+// GOOD: const LEGAL_AGE = 18;
+//       if (user.age > LEGAL_AGE) { /*...*/ } // Clearer! LEGAL_AGE explains the purpose of the number.
+
+
 const nodemailer = require('nodemailer');
 const { S3Client, GetObjectCommand } = require("@aws-sdk/client-s3");
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
